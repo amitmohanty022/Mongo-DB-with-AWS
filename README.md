@@ -1,4 +1,3 @@
-# Mongo-DB-with-AWS
 # MongoDB with AWS in MongoDB Atlas
 
 This project demonstrates a Python-based student management system using MongoDB Atlas for database operations. The project provides a command-line interface for managing student records, including admissions, certificate generation, status updates, and more.
