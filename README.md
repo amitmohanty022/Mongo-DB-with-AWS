@@ -19,7 +19,7 @@ This project demonstrates a Python-based student management system using MongoDB
 
 ## Project Setup
 1. Clone the repository:
-   ```bash
+   ```bash 
    git clone <repository-url>
    ```
 2. Install dependencies:
