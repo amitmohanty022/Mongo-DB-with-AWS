@@ -9,7 +9,7 @@ This project demonstrates a Python-based student management system using MongoDB
 - **Placement Management:** Manage and view placed students.
 - **Certificate Generation:** Verify and generate student course completion certificates.
 - **Record Deletion:** Delete student records from the database.
-- **Status Updation:** Update course status for students.
+- **Status Updation:** Update course status for students. 
 
 ## Technologies Used
 - **Python** (for backend logic and CLI interface)
