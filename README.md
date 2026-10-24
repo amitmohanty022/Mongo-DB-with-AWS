@@ -24,14 +24,14 @@ This project demonstrates a Python-based student management system using MongoDB
    ```
 2. Install dependencies:
    ```bash
-   pip install pymongo
+   pip install "pymongo>=4.10"
    ```
 3. Configure MongoDB Atlas:
    - Create a MongoDB Atlas account.
    - Set up a cluster and obtain the connection string.
 4. Run the application:
    ```bash
-   python main.py
+   python ducat.py
    ```
 
 ## MongoDB Atlas Connection
