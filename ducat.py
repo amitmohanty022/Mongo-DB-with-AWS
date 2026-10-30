@@ -1,5 +1,17 @@
+import os
+
+import certifi
 import pymongo
-clint = pymongo.MongoClient('mongodb+srv://Ducat101:DUCAT@cluster0.gvtwd.mongodb.net/',tlsAllowInvalidCertificates=True)
+from dotenv import load_dotenv
+
+load_dotenv()
+
+MONGODB_URI = os.getenv("MONGODB_URI")
+if not MONGODB_URI:
+    raise SystemExit("MONGODB_URI is not set. Copy .env.example to .env and paste your MongoDB Atlas connection string.")
+
+# certifi provides up-to-date CA certificates, so TLS works without disabling verification.
+clint = pymongo.MongoClient(MONGODB_URI, tlsCAFile=certifi.where())
 
 mydb = clint['Ducat']
 
@@ -11,7 +23,7 @@ def admission(ducat_id,st_name,c_name,duration):
 
 def total(): # total no.of student list
     for el in coll.find():
-        print(f"student_id:{el["id"]} name:{el["name"]} course:{el["course"]}") 
+        print(f"student_id:{el['id']} name:{el['name']} course:{el['course']}") 
 
 def extention(ducat_id,duration):
     coll.update_one({"id":ducat_id},{"$inc":{"duration":duration}}) 

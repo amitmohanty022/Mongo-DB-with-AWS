@@ -1,56 +1,87 @@
-# MongoDB with AWS in MongoDB Atlas
+# MongoDB with AWS (MongoDB Atlas)
 
-This project demonstrates a Python-based student management system using MongoDB Atlas for database operations. The project provides a command-line interface for managing student records, including admissions, certificate generation, status updates, and more.
+A command-line student management system in Python. It stores data in a **MongoDB Atlas** cluster hosted on AWS.
 
 ## Features
-- **Student Admission:** Add new student records to the database.
-- **View Total Students:** Display all student records.
-- **Course Extension:** Extend the course duration for students.
-- **Placement Management:** Manage and view placed students.
-- **Certificate Generation:** Verify and generate student course completion certificates.
-- **Record Deletion:** Delete student records from the database.
-- **Status Updation:** Update course status for students. 
+- **Student Admission:** add new student records.
+- **View Total Students:** list all students.
+- **Course Extension:** extend a student's course duration.
+- **Placement Management:** add and list placed students.
+- **Certificate Check:** show the record if the course is completed.
+- **Record Deletion:** delete a student record.
+- **Status Update:** change a student's course status (for example to `Completed`).
 
-## Technologies Used
-- **Python** (for backend logic and CLI interface)
-- **MongoDB Atlas** (as the database)
-- **PyMongo** (for MongoDB integration)
-- **AWS Cloud Services** (for cloud storage and database hosting)
+## How to run (step by step)
 
-## Project Setup
-1. Clone the repository:
-   ```bash 
-   git clone <repository-url>
-   ```
-2. Install dependencies:
-   ```bash
-   pip install pymongo
-   ```
-3. Configure MongoDB Atlas:
-   - Create a MongoDB Atlas account.
-   - Set up a cluster and obtain the connection string.
-4. Run the application:
-   ```bash
-   python main.py
-   ```
+You need **Python 3.10 or newer** ([download](https://www.python.org/downloads/)) and a free **MongoDB Atlas** account.
 
-## MongoDB Atlas Connection
-Ensure you replace the connection string in the `MongoClient` initialization with your MongoDB Atlas URI.
+**1. Download the project**
 
-```python
-client = pymongo.MongoClient('mongodb+srv://<username>:<password>@cluster0.gvtwd.mongodb.net/', tlsAllowInvalidCertificates=True)
+```bash
+git clone https://github.com/amitmohanty022/Mongo-DB-with-AWS.git
+cd Mongo-DB-with-AWS
 ```
 
-## Security Considerations
-- Avoid hardcoding credentials in the codebase.
-- Use environment variables to store sensitive information securely.
+**2. Create a virtual environment and activate it**
 
-## Contributing
-Contributions are welcome! Please fork the repository and submit a pull request.
+```bash
+python -m venv venv
+# Windows
+venv\Scripts\activate
+# macOS / Linux
+source venv/bin/activate
+```
+
+**3. Install the requirements**
+
+```bash
+pip install -r requirements.txt
+```
+
+**4. Get your MongoDB Atlas connection string**
+
+1. Sign in at https://cloud.mongodb.com and create a free cluster. Choose **AWS** as the provider.
+2. Under **Database Access**, add a database user with a username and password.
+3. Under **Network Access**, add your IP address, or `0.0.0.0/0` for testing.
+4. Click **Connect → Drivers → Python** and copy the connection string. It looks like:
+   `mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/`
+
+**5. Put the connection string in `.env`**
+
+- Copy `.env.example` to a new file named `.env`
+  - Windows: `copy .env.example .env`
+  - macOS / Linux: `cp .env.example .env`
+- Open `.env` and paste the string after `MONGODB_URI=`, with your real username and password filled in.
+
+**6. Start the app**
+
+```bash
+python ducat.py
+```
+
+**7. Use it**
+
+Type a number from the menu and press Enter:
+
+```
+1 New Admission        4 Add Placed Student     7 Update Status
+2 Total Students       5 Certificate of Course  8 Placed Student List
+3 Course Extension     6 Delete a Record        9 Exit
+```
+
+The app uses the database `Ducat`, with the collections `students` and `placed`. They are created automatically on first insert.
+
+## Security
+- The connection string is read from `.env`, which git ignores. Never commit it.
+- TLS certificates are verified using `certifi`.
+
+## Troubleshooting
+
+| Problem | Fix |
+|---|---|
+| "MONGODB_URI is not set" | Make sure the file is named exactly `.env` and is in the project folder. |
+| `ServerSelectionTimeoutError` | Add your IP address under **Network Access** in Atlas. |
+| `bad auth : authentication failed` | Check the username and password in the URI. Special characters in the password must be URL-encoded (for example `@` → `%40`). |
 
 ## License
-This project is licensed under the MIT License.
-
-## Contact
-For any inquiries, feel free to reach out via [GitHub Issues](https://github.com/yourusername/mongodb-aws/issues).
-
+MIT
